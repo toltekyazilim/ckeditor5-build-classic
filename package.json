@@ -70,6 +70,7 @@
   "dependencies": {
     "@ckeditor/ckeditor5-enter": "^10.1.1",
     "@ckeditor/ckeditor5-font": "^10.0.2",
+    "@martindilling/ckeditor5-image-extended": "^1.0.0",
     "ckeditor5-simple-upload": "^1.0.4"
   }
 }

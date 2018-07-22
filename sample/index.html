@@ -25,10 +25,27 @@
 
 		<p>You can use this sample to validate whether your <a href="https://docs.ckeditor.com/ckeditor5/latest/builds/guides/development/custom-builds.html">custom build</a> works fine.</p>
 	</div>
+	<script type="text/javascript" src="http://cdn.toltek.com.tr/Content/University/javascript/jquery.min.js"></script>
+	<script>
+
+
+		function ImageBrowser(editor) {
+			console.log(editor.model.element);
+			PopWindowCenter('http://local.oys.erzincan.edu.tr/Portal/Page/ImageBrowser', 'Editor', 800, 600);
+
+			//const imageUrl = prompt('Image URL');
+			//const imageElement = new ModelElement('image', {
+			// src: imageUrl
+			//});
+			//editor.model.insertContent(imageElement, editor.model.document.selection);
+
+
+		}
+	</script>
 
 	<script src="../build/ckeditor.js"></script>
 	<script>
-		var cb = function () { return (new Date()).getTime() }
+		let PEdit;
 		ClassicEditor.create(document.querySelector('#editor'),
 			{
 				autosave: {
@@ -36,20 +53,31 @@
 						return saveData(editor.getData());
 					}
 				},
+				ImageBrowser: {
+					browserUrl: "http://local.oys.erzincan.edu.tr/Manager/Page/ImageBrowser?Editor=editor"
+				},
 				simpleUpload: {
-					uploadUrl: 'http://local.tomersau.tolteklms.com/Portal/page/uploadimage',
-					headers: { 'x-header': 'myhead', 'x-header-cb': cb }
+					uploadUrl: 'http://local.oys.erzincan.edu.tr/Portal/Page/ImageUpload',
+					headers: { 'x-header': 'myhead' }
 				}
 			}
 		)
 			.then(editor => {
-				window.editor = editor;
+				PEdit = editor;
 			})
 			.catch(err => {
 				console.error(err.stack);
 			});
 		function saveData(d) {
 			//alert(d);
+		}
+		function ImageSelected(id, url) {
+			alert(url);
+			const imageElement = new ModelElement('image', {
+				src: url
+			}); 
+			editor.model.insertContent(imageElement, editor.model.document.selection);
+				
 		}
 	</script>
 

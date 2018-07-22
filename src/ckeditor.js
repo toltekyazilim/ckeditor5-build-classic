@@ -38,8 +38,8 @@ import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
 import Autosave from '@ckeditor/ckeditor5-autosave/src/autosave';
 import PendingActions from '@ckeditor/ckeditor5-core/src/pendingactions';
 //import EasyImage from '@ckeditor/ckeditor5-easy-image/src/easyimage';
-import SimpleUpload from 'ckeditor5-simple-upload/src/simpleupload';
-
+import ImageUploader from './ImageUploader/src/ImageUploader';
+import ImageBrowser from './ImageBrowser/src/ImageBrowser';
 
 export default class ClassicEditor extends ClassicEditorBase {}
 
@@ -54,34 +54,42 @@ ClassicEditor.builtinPlugins = [
 	Image, ImageCaption, ImageStyle, ImageToolbar, ImageUpload,
 	Table, TableToolbar, 
 	Autosave, PendingActions,
-	SimpleUpload //EasyImage,
+	ImageUploader, //EasyImage,
+	//ImageExtended,ImageInsert
+	ImageBrowser
 ];
 
 // Editor configuration.
 ClassicEditor.defaultConfig = {
 	toolbar: {
 		items: [
-			'undo','redo','|', 
+			'undo', 'redo', '|', 
 			'heading','fontFamily','fontSize','alignment','|', 
 			'bold', 'italic', 'underline', 'strikethrough', 'code','|', 
 			'bulletedList','numberedList','link','blockQuote','|', 
 			'imageUpload',
+			'browseImage',
 			'insertTable', 
 		]
 	},
 	image: {
-		toolbar: [			 
-			'imageStyle:alignLeft',
-			'imageStyle:aligncenter',
-			'imageStyle:alignRight',
-			'imageStyle:full',
-			'|',
-			'imageTextAlternative'
+		toolbar: ['imageTextAlternative','|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight'],
+		styles: [
+			'full',
+			'alignLeft',
+			'alignRight'
 		]
 	},
 	 table: {
             toolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
-        },
+	},
+	ImageBrowser: {
+		browserUrl: "/Files/ImageBrowser?Editor=editor"
+	},
+	ImageUploader: {
+		uploadUrl: "/Files/ImageUploader?Editor=editor",
+		headers: { 'x-header': 'myhead' }
+	},
 	// This value must be kept in sync with the language defined in webpack.config.js.
 	language: 'tr'
 };
